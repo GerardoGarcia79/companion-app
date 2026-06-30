@@ -3,17 +3,14 @@ import { formatTime } from "../lib/utils";
 
 interface Props {
   recordingSeconds: number;
-  handleCloseModal: () => void;
+  handleCancel: () => void;
 }
 
-export const EndSessionModal = ({
-  recordingSeconds,
-  handleCloseModal,
-}: Props) => {
+export const EndSessionModal = ({ recordingSeconds, handleCancel }: Props) => {
   return (
     <div
       className="bg-neutral-900/40 rounded-3xl absolute inset-0"
-      onClick={handleCloseModal}
+      onClick={handleCancel}
     >
       <div
         className="bg-white absolute rounded-3xl p-4 top-10 bottom-10 right-3 left-3 z-10"
@@ -33,7 +30,7 @@ export const EndSessionModal = ({
 
         <div className="mt-auto flex gap-2">
           <button
-            onClick={handleCloseModal}
+            onClick={handleCancel}
             className="px-5 py-3 rounded-xl font-bold text-sm text-neutral-600 bg-neutral-100 hover:bg-neutral-200 transition-colors"
           >
             Cancelar

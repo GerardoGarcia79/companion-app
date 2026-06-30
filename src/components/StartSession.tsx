@@ -1,21 +1,22 @@
 import { toast } from "sonner";
 import { IoPlaySharp } from "react-icons/io5";
-import { mockKits } from "../data/mockKits";
 import { KitCard } from "./KitCard";
-import { cn } from "../lib/utils";
-import type { Kit } from "../types/kit.types";
 import { SessionHeader } from "./shared/SessionHeader";
 import { SessionContainer } from "./shared/SessionContainer";
+import { cn } from "../lib/utils";
+import { mockKits } from "../data/mockKits";
+import type { SessionStatus } from "../CompanionApp";
+import type { Kit } from "../types/kit.types";
 
 interface Props {
   handleKitClick: (kit: Kit) => void;
-  handleStartSession: () => void;
+  handleChangeSessionStatus: (status: SessionStatus) => void;
   selectedKit: Kit | undefined;
 }
 
 export const StartSession = ({
   handleKitClick,
-  handleStartSession,
+  handleChangeSessionStatus,
   selectedKit,
 }: Props) => {
   return (
@@ -46,7 +47,7 @@ export const StartSession = ({
                 : "cursor-not-allowed bg-neutral-200 text-neutral-400",
             )}
             onClick={() => {
-              handleStartSession();
+              handleChangeSessionStatus("recording");
               toast.success("Sesión iniciada correctamente.");
             }}
           >

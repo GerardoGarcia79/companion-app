@@ -6,14 +6,30 @@ import { SessionContainer } from "./shared/SessionContainer";
 import { SessionHeader } from "./shared/SessionHeader";
 import { cn, formatTime } from "../lib/utils";
 import type { Kit } from "../types/kit.types";
+import type { SessionStatus } from "../CompanionApp";
 
 interface Props {
   selectedKit: Kit | undefined;
   recordingSeconds: number;
+  handleChangeSessionStatus: (status: SessionStatus) => void;
 }
 
-export const ActiveSession = ({ selectedKit, recordingSeconds }: Props) => {
+export const ActiveSession = ({
+  selectedKit,
+  recordingSeconds,
+  handleChangeSessionStatus,
+}: Props) => {
   const [showModal, setShowModal] = useState(false);
+
+  const handleEndSession = () => {
+    handleChangeSessionStatus("completed");
+    setShowModal(true);
+  };
+
+  const handleCancel = () => {
+    setShowModal(false);
+    handleChangeSessionStatus("recording");
+  };
 
   return (
     <SessionContainer>
@@ -51,7 +67,7 @@ export const ActiveSession = ({ selectedKit, recordingSeconds }: Props) => {
                   ? "cursor-pointer bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white"
                   : "cursor-not-allowed bg-neutral-200 text-neutral-400",
               )}
-              onClick={() => setShowModal(true)}
+              onClick={handleEndSession}
             >
               <FaStop />
               DETENER SESIÓN
@@ -62,7 +78,7 @@ export const ActiveSession = ({ selectedKit, recordingSeconds }: Props) => {
       {showModal && (
         <EndSessionModal
           recordingSeconds={recordingSeconds}
-          handleCloseModal={() => setShowModal(false)}
+          handleCancel={handleCancel}
         />
       )}
     </SessionContainer>

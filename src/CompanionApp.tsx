@@ -4,7 +4,7 @@ import { StartSession } from "./components/StartSession";
 import type { Kit } from "./types/kit.types";
 import { ActiveSession } from "./components/ActiveSession";
 
-type SessionStatus = "idle" | "recording" | "completed";
+export type SessionStatus = "idle" | "recording" | "completed";
 
 const CompanionApp = () => {
   const [selectedKit, setSelectedKit] = useState<Kit | undefined>(undefined);
@@ -23,6 +23,10 @@ const CompanionApp = () => {
     };
   }, [sessionStatus]);
 
+  const handleChangeSessionStatus = (status: SessionStatus) => {
+    setSessionStatus(status);
+  };
+
   return (
     <>
       <section className="bg-neutral-100 min-h-screen w-full flex justify-center items-center p-4">
@@ -30,13 +34,14 @@ const CompanionApp = () => {
           <StartSession
             selectedKit={selectedKit}
             handleKitClick={(kit) => setSelectedKit(kit)}
-            handleStartSession={() => setSessionStatus("recording")}
+            handleChangeSessionStatus={handleChangeSessionStatus}
           />
         )}
         {sessionStatus !== "idle" && (
           <ActiveSession
             selectedKit={selectedKit}
             recordingSeconds={recordingSeconds}
+            handleChangeSessionStatus={handleChangeSessionStatus}
           />
         )}
         <Toaster />
