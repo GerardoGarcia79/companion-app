@@ -1,9 +1,11 @@
-import { SessionContainer } from "./shared/SessionContainer";
-import { SessionHeader } from "./shared/SessionHeader";
-import type { Kit } from "../types/kit.types";
+import { useState } from "react";
 import { TfiPackage } from "react-icons/tfi";
 import { FaStop } from "react-icons/fa";
+import { EndSessionModal } from "./EndSessionModal";
+import { SessionContainer } from "./shared/SessionContainer";
+import { SessionHeader } from "./shared/SessionHeader";
 import { cn, formatTime } from "../lib/utils";
+import type { Kit } from "../types/kit.types";
 
 interface Props {
   selectedKit: Kit | undefined;
@@ -11,6 +13,8 @@ interface Props {
 }
 
 export const ActiveSession = ({ selectedKit, recordingSeconds }: Props) => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <SessionContainer>
       <SessionHeader />
@@ -47,7 +51,7 @@ export const ActiveSession = ({ selectedKit, recordingSeconds }: Props) => {
                   ? "cursor-pointer bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white"
                   : "cursor-not-allowed bg-neutral-200 text-neutral-400",
               )}
-              // onClick={() => {}}
+              onClick={() => setShowModal(true)}
             >
               <FaStop />
               DETENER SESIÓN
@@ -55,6 +59,12 @@ export const ActiveSession = ({ selectedKit, recordingSeconds }: Props) => {
           </div>
         </div>
       </div>
+      {showModal && (
+        <EndSessionModal
+          recordingSeconds={recordingSeconds}
+          handleCloseModal={() => setShowModal(false)}
+        />
+      )}
     </SessionContainer>
   );
 };

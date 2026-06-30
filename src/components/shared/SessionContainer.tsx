@@ -1,6 +1,6 @@
 export const SessionContainer = ({ children }: React.PropsWithChildren) => {
   return (
-    <div className="w-full max-w-md shadow-lg rounded-lg bg-white">
+    <div className="relative w-full max-w-md shadow-lg rounded-3xl bg-white">
       {children}
     </div>
   );
