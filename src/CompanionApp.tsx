@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import { StartSession } from "./components/StartSession";
 import type { Kit } from "./types/kit.types";
@@ -9,6 +9,19 @@ type SessionStatus = "idle" | "recording" | "completed";
 const CompanionApp = () => {
   const [selectedKit, setSelectedKit] = useState<Kit | undefined>(undefined);
   const [sessionStatus, setSessionStatus] = useState<SessionStatus>("idle");
+  const [recordingSeconds, setRecordingSeconds] = useState(0);
+
+  useEffect(() => {
+    if (sessionStatus !== "recording") return;
+
+    const interval = setInterval(() => {
+      setRecordingSeconds((prev) => prev + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [sessionStatus]);
 
   return (
     <>
@@ -21,7 +34,10 @@ const CompanionApp = () => {
           />
         )}
         {sessionStatus !== "idle" && (
-          <ActiveSession selectedKit={selectedKit} />
+          <ActiveSession
+            selectedKit={selectedKit}
+            recordingSeconds={recordingSeconds}
+          />
         )}
         <Toaster />
       </section>

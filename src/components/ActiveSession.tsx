@@ -7,9 +7,10 @@ import { cn } from "../lib/utils";
 
 interface Props {
   selectedKit: Kit | undefined;
+  recordingSeconds: number;
 }
 
-export const ActiveSession = ({ selectedKit }: Props) => {
+export const ActiveSession = ({ selectedKit, recordingSeconds }: Props) => {
   return (
     <SessionContainer>
       <SessionHeader />
@@ -31,7 +32,7 @@ export const ActiveSession = ({ selectedKit }: Props) => {
               <div className="bg-red-600 rounded-full h-2 w-2" />
               <p className="text-red-600 font-semibold">Grabando</p>
             </div>
-            <p className="font-bold text-4xl">28:55</p>
+            <p className="font-bold text-4xl">{recordingSeconds}</p>
           </div>
           <div className="mt-auto">
             <p className="text-neutral-500 mb-6 px-4 text-center">
