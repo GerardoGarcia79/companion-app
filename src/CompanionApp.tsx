@@ -1,5 +1,7 @@
 import { IoPlaySharp } from "react-icons/io5";
 import { SlLocationPin } from "react-icons/sl";
+import { KitCard } from "./components/KitCard";
+import { mockKits } from "./data/mockKits";
 
 const CompanionApp = () => {
   return (
@@ -19,7 +21,12 @@ const CompanionApp = () => {
         <div className="p-6 rounded-b-3xl">
           <h2 className="text-2xl font-bold mb-2">Nueva Sesión</h2>
           <p className="text-neutral-600">¿Qué equipo vas a utilizar hoy?</p>
-          {/* TODO: list of kits */}
+          <div className="flex flex-col gap-2 mt-6">
+            {mockKits.map((k) => {
+              const { id, kit, description } = k;
+              return <KitCard key={id} kit={kit} description={description} />;
+            })}
+          </div>
           <div className="border-t-2 border-neutral-100 mt-8 pt-4">
             <button
               disabled
