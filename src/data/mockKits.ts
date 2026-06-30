@@ -1,8 +1,4 @@
-type Kit = {
-  id: number;
-  kit: string;
-  description: string;
-};
+import type { Kit } from "../types/kit.types";
 
 export const mockKits: Kit[] = [
   {
