@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { IoPlaySharp } from "react-icons/io5";
 import { SlLocationPin } from "react-icons/sl";
 import { KitCard } from "./components/KitCard";
 import { mockKits } from "./data/mockKits";
+import type { Kit } from "./types/kit.types";
+import { cn } from "./lib/utils";
 
 const CompanionApp = () => {
+  const [selectedKit, setSelectedKit] = useState<Kit | undefined>(undefined);
+
   return (
     <section className="bg-neutral-100 min-h-screen w-full flex justify-center items-center p-4">
       <div className="w-full max-w-md shadow-lg rounded-lg bg-white">
@@ -23,14 +28,25 @@ const CompanionApp = () => {
           <p className="text-neutral-600">¿Qué equipo vas a utilizar hoy?</p>
           <div className="flex flex-col gap-2 mt-6">
             {mockKits.map((k) => {
-              const { id, kit, description } = k;
-              return <KitCard key={id} kit={kit} description={description} />;
+              return (
+                <KitCard
+                  key={k.id}
+                  kit={k}
+                  handleClick={(kit) => setSelectedKit(kit)}
+                  isSelected={selectedKit?.id === k.id}
+                />
+              );
             })}
           </div>
           <div className="border-t-2 border-neutral-100 mt-8 pt-4">
             <button
-              disabled
-              className="bg-neutral-200 w-full p-5 rounded-2xl cursor-pointer flex justify-center items-center gap-2 text-xl font-bold text-neutral-400"
+              disabled={!selectedKit}
+              className={cn(
+                "w-full p-5 rounded-2xl flex justify-center items-center gap-2 text-xl font-bold transition duration-200 ease-out",
+                selectedKit
+                  ? "cursor-pointer bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white"
+                  : "cursor-not-allowed bg-neutral-200 text-neutral-400",
+              )}
             >
               <IoPlaySharp />
               INICIAR SESIÓN
