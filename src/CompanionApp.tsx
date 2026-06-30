@@ -20,7 +20,9 @@ const CompanionApp = () => {
             handleStartSession={() => setSessionStatus("recording")}
           />
         )}
-        {sessionStatus !== "idle" && <ActiveSession />}
+        {sessionStatus !== "idle" && (
+          <ActiveSession selectedKit={selectedKit} />
+        )}
         <Toaster />
       </section>
     </>
