@@ -3,7 +3,7 @@ import { SessionHeader } from "./shared/SessionHeader";
 import type { Kit } from "../types/kit.types";
 import { TfiPackage } from "react-icons/tfi";
 import { FaStop } from "react-icons/fa";
-import { cn } from "../lib/utils";
+import { cn, formatTime } from "../lib/utils";
 
 interface Props {
   selectedKit: Kit | undefined;
@@ -32,7 +32,7 @@ export const ActiveSession = ({ selectedKit, recordingSeconds }: Props) => {
               <div className="bg-red-600 rounded-full h-2 w-2" />
               <p className="text-red-600 font-semibold">Grabando</p>
             </div>
-            <p className="font-bold text-4xl">{recordingSeconds}</p>
+            <p className="font-bold text-4xl">{formatTime(recordingSeconds)}</p>
           </div>
           <div className="mt-auto">
             <p className="text-neutral-500 mb-6 px-4 text-center">
