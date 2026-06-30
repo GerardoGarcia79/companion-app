@@ -1,10 +1,11 @@
 import { toast } from "sonner";
 import { IoPlaySharp } from "react-icons/io5";
-import { SlLocationPin } from "react-icons/sl";
 import { mockKits } from "../data/mockKits";
 import { KitCard } from "./KitCard";
 import { cn } from "../lib/utils";
 import type { Kit } from "../types/kit.types";
+import { SessionHeader } from "./shared/SessionHeader";
+import { SessionContainer } from "./shared/SessionContainer";
 
 interface Props {
   handleKitClick: (kit: Kit) => void;
@@ -18,18 +19,8 @@ export const StartSession = ({
   selectedKit,
 }: Props) => {
   return (
-    <div className="w-full max-w-md shadow-lg rounded-lg bg-white">
-      <div className="bg-black text-white p-6 rounded-t-3xl">
-        <div className="flex justify-between">
-          <div>
-            <h1 className="font-bold text-xl">GeoCompanion</h1>
-            <p className="text-sm text-neutral-400">Operador de Campo</p>
-          </div>
-          <div className="flex justify-center items-center">
-            <SlLocationPin className="text-blue-400 w-8 h-8" />
-          </div>
-        </div>
-      </div>
+    <SessionContainer>
+      <SessionHeader />
       <div className="p-6 rounded-b-3xl">
         <h2 className="text-2xl font-bold mb-2">Nueva Sesión</h2>
         <p className="text-neutral-600">¿Qué equipo vas a utilizar hoy?</p>
@@ -64,6 +55,6 @@ export const StartSession = ({
           </button>
         </div>
       </div>
-    </div>
+    </SessionContainer>
   );
 };

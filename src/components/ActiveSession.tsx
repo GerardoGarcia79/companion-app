@@ -1,3 +1,10 @@
+import { SessionContainer } from "./shared/SessionContainer";
+import { SessionHeader } from "./shared/SessionHeader";
+
 export const ActiveSession = () => {
-  return <div>ActiveSession</div>;
+  return (
+    <SessionContainer>
+      <SessionHeader />
+    </SessionContainer>
+  );
 };
