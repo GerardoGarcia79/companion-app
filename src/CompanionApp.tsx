@@ -1,3 +1,6 @@
+import { IoPlaySharp } from "react-icons/io5";
+import { SlLocationPin } from "react-icons/sl";
+
 const CompanionApp = () => {
   return (
     <section className="bg-neutral-100 min-h-screen w-full flex justify-center items-center p-4">
@@ -5,18 +8,24 @@ const CompanionApp = () => {
         <div className="bg-black text-white p-6 rounded-t-3xl">
           <div className="flex justify-between">
             <div>
-              <p>GeoCompanion</p>
-              <p>Operador de Campo</p>
+              <h1 className="font-bold text-xl">GeoCompanion</h1>
+              <p className="text-sm text-neutral-400">Operador de Campo</p>
             </div>
-            <div className="flex justify-center items-center">icono</div>
+            <div className="flex justify-center items-center">
+              <SlLocationPin className="text-blue-400 w-8 h-8" />
+            </div>
           </div>
         </div>
         <div className="p-6 rounded-b-3xl">
-          <h3>Nueva Sesión</h3>
-          <p>¿Qué equipo vas a utilizar hoy?</p>
+          <h2 className="text-2xl font-bold mb-2">Nueva Sesión</h2>
+          <p className="text-neutral-600">¿Qué equipo vas a utilizar hoy?</p>
           {/* TODO: list of kits */}
           <div className="border-t-2 border-neutral-100 mt-8 pt-4">
-            <button className="bg-neutral-200 w-full p-5 rounded-2xl cursor-pointer">
+            <button
+              disabled
+              className="bg-neutral-200 w-full p-5 rounded-2xl cursor-pointer flex justify-center items-center gap-2 text-xl font-bold text-neutral-400"
+            >
+              <IoPlaySharp />
               INICIAR SESIÓN
             </button>
           </div>
