@@ -1,5 +1,7 @@
 import { GoClock } from "react-icons/go";
 import { formatTime } from "../lib/utils";
+import { mockIncidents } from "../data/mockIncidents";
+import { IncidentCard } from "./IncidentCard";
 
 interface Props {
   recordingSeconds: number;
@@ -13,7 +15,7 @@ export const EndSessionModal = ({ recordingSeconds, handleCancel }: Props) => {
       onClick={handleCancel}
     >
       <div
-        className="bg-white absolute rounded-3xl p-4 top-10 bottom-10 right-3 left-3 z-10"
+        className="bg-white absolute rounded-3xl p-3 top-10 bottom-10 right-3 left-3 z-10 overflow-y-auto flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between">
@@ -26,8 +28,12 @@ export const EndSessionModal = ({ recordingSeconds, handleCancel }: Props) => {
         <p className="text-neutral-600 text-sm mb-4 mt-2">
           ¿Hubo algún incidente durante la recolección de datos?
         </p>
-        {/* TODO: IncidentCard */}
-
+        <div className="flex flex-col gap-2 mb-4">
+          {/* TODO: IncidentCard */}
+          {mockIncidents.map((incident) => (
+            <IncidentCard incident={incident} key={incident.id} />
+          ))}
+        </div>
         <div className="mt-auto flex gap-2">
           <button
             onClick={handleCancel}
@@ -36,7 +42,7 @@ export const EndSessionModal = ({ recordingSeconds, handleCancel }: Props) => {
             Cancelar
           </button>
           <button
-            // onClick={handleEndSession}
+            // TODO:  onClick={handleEndSession}
             className="flex-1 bg-neutral-900 hover:bg-black text-white py-3 rounded-xl font-bold text-sm transition-colors active:scale-[0.98]"
           >
             Guardar Registro
