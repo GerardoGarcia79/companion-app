@@ -49,8 +49,8 @@ export const ActiveSession = ({
   return (
     <SessionContainer>
       <SessionHeader />
-      <div className="p-6 rounded-b-3xl">
-        <div className="flex flex-col justify-center items-center gap-2">
+      <div className="flex-1 p-6 flex flex-col">
+        <div className="flex flex-col flex-1 items-center gap-2">
           <div className="inline-flex items-center gap-2 mx-auto rounded-full bg-neutral-100 px-4 py-2">
             <TfiPackage
               className={cn(
@@ -62,7 +62,7 @@ export const ActiveSession = ({
               {selectedKit?.kit}
             </p>
           </div>
-          <div className="border-8 border-red-100 bg-red-50 w-48 h-48 rounded-full flex flex-col items-center justify-center mb-12">
+          <div className="border-8 border-red-100 bg-red-50 w-48 h-48 rounded-full flex flex-col items-center justify-center mt-8">
             <div className="flex items-center gap-2">
               <div className="bg-red-600 rounded-full h-2 w-2" />
               <p className="text-red-600 font-semibold">Grabando</p>
