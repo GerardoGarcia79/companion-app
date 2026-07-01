@@ -56,6 +56,7 @@ const CompanionApp = () => {
             handleChangeSessionStatus={handleChangeSessionStatus}
             handleIncidentClick={(incident) => setSelectedIncident(incident)}
             handleSessionEnded={handleSessionEnded}
+            handleChangeIncidentSelected={() => setSelectedIncident(undefined)}
           />
         )}
         <Toaster />
