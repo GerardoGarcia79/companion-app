@@ -1,5 +1,5 @@
 export type Kit = {
-  id: number;
+  deviceId: number;
   kit: string;
   description: string;
 };

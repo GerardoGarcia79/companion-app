@@ -50,10 +50,10 @@ export const StartSession = ({
           {kits.map((k) => {
             return (
               <KitCard
-                key={k.id}
+                key={k.deviceId}
                 kit={k}
                 handleClick={handleKitClick}
-                isSelected={selectedKit?.id === k.id}
+                isSelected={selectedKit?.deviceId === k.deviceId}
               />
             );
           })}

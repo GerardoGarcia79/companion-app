@@ -5,4 +5,5 @@ export type Incident = {
   incident: string;
   description: string;
   icon: IconType;
+  incidentStatus: string;
 };
