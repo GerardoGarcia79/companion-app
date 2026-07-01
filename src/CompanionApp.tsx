@@ -59,7 +59,7 @@ const CompanionApp = () => {
             handleChangeIncidentSelected={() => setSelectedIncident(undefined)}
           />
         )}
-        <Toaster />
+        <Toaster position="top-center" richColors />
       </section>
     </>
   );
