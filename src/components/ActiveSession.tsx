@@ -15,6 +15,7 @@ interface Props {
   recordingSeconds: number;
   handleChangeSessionStatus: (status: SessionStatus) => void;
   handleIncidentClick: (incident: Incident) => void;
+  handleSessionEnded: () => void;
 }
 
 export const ActiveSession = ({
@@ -23,6 +24,7 @@ export const ActiveSession = ({
   recordingSeconds,
   handleChangeSessionStatus,
   handleIncidentClick,
+  handleSessionEnded,
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -34,6 +36,11 @@ export const ActiveSession = ({
   const handleCancel = () => {
     setShowModal(false);
     handleChangeSessionStatus("recording");
+  };
+
+  const handleEndSessionFlow = () => {
+    handleSessionEnded();
+    setShowModal(false);
   };
 
   return (
@@ -87,6 +94,7 @@ export const ActiveSession = ({
           selectedKitId={selectedKit?.deviceId}
           handleCancel={handleCancel}
           handleIncidentClick={handleIncidentClick}
+          handleEndSessionFlow={handleEndSessionFlow}
         />
       )}
     </SessionContainer>

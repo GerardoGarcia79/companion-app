@@ -13,6 +13,7 @@ interface Props {
   selectedKitId: number | undefined;
   handleCancel: () => void;
   handleIncidentClick: (incident: Incident) => void;
+  handleEndSessionFlow: () => void;
 }
 
 export const EndSessionModal = ({
@@ -21,6 +22,7 @@ export const EndSessionModal = ({
   selectedKitId,
   handleCancel,
   handleIncidentClick,
+  handleEndSessionFlow,
 }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,6 +42,7 @@ export const EndSessionModal = ({
       await createSession(payload);
     } finally {
       setIsLoading(false);
+      handleEndSessionFlow();
     }
   };
 

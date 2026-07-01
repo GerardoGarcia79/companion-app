@@ -31,6 +31,13 @@ const CompanionApp = () => {
     setSessionStatus(status);
   };
 
+  const handleSessionEnded = () => {
+    setSelectedKit(undefined);
+    setSelectedIncident(undefined);
+    setSessionStatus("idle");
+    setRecordingSeconds(0);
+  };
+
   return (
     <>
       <section className="bg-neutral-100 min-h-screen w-full flex justify-center items-center p-4">
@@ -48,6 +55,7 @@ const CompanionApp = () => {
             recordingSeconds={recordingSeconds}
             handleChangeSessionStatus={handleChangeSessionStatus}
             handleIncidentClick={(incident) => setSelectedIncident(incident)}
+            handleSessionEnded={handleSessionEnded}
           />
         )}
         <Toaster />
