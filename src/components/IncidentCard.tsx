@@ -12,20 +12,35 @@ export const IncidentCard = ({
   handleIncidentClick,
   isSelected = false,
 }: Props) => {
-  const { incident: incidentName, description, icon: Icon } = incident;
+  const {
+    incident: incidentName,
+    description,
+    icon: Icon,
+    incidentStatus,
+  } = incident;
+
+  const isOk = incidentStatus === "ok";
 
   return (
     <button
       onClick={() => handleIncidentClick(incident)}
       className={cn(
         "p-3 border-2 flex gap-4 items-center w-full rounded-xl cursor-pointer transition-colors duration-200",
-        isSelected ? "border-blue-600 bg-blue-50/50" : "border-neutral-200",
+        isSelected
+          ? isOk
+            ? "border-green-600 bg-green-50"
+            : "border-orange-500 bg-orange-50"
+          : "border-neutral-200",
       )}
     >
       <div
         className={cn(
           "p-3 rounded-full transition-colors duration-200",
-          isSelected ? "bg-blue-600" : "bg-neutral-100",
+          isSelected
+            ? isOk
+              ? "bg-green-600"
+              : "bg-orange-500"
+            : "bg-neutral-100",
         )}
       >
         <Icon
@@ -45,12 +60,23 @@ export const IncidentCard = ({
       </div>
       <div
         className={cn(
-          "h-5 w-5 rounded-full shrink-0 border-2 transition-colors",
+          "h-5 w-5 rounded-full shrink-0 border-2 flex items-center justify-center transition-colors",
           isSelected
-            ? "bg-blue-600 border-blue-600"
-            : "bg-white border-neutral-300",
+            ? isOk
+              ? "border-green-600"
+              : "border-orange-500"
+            : "border-neutral-300",
         )}
-      />
+      >
+        {isSelected && (
+          <div
+            className={cn(
+              "h-2.5 w-2.5 rounded-full",
+              isOk ? "bg-green-600" : "bg-orange-500",
+            )}
+          />
+        )}
+      </div>
     </button>
   );
 };
