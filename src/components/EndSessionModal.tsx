@@ -3,10 +3,14 @@ import { cn, formatTime } from "../lib/utils";
 import { mockIncidents } from "../data/mockIncidents";
 import { IncidentCard } from "./IncidentCard";
 import type { Incident } from "../types/incident.types";
+import type { SessionPayload } from "../types/session.types";
+import { createSession } from "../api/sessions";
+import { useState } from "react";
 
 interface Props {
   recordingSeconds: number;
   selectedIncident: Incident | undefined;
+  selectedKitId: number | undefined;
   handleCancel: () => void;
   handleIncidentClick: (incident: Incident) => void;
 }
@@ -14,9 +18,31 @@ interface Props {
 export const EndSessionModal = ({
   recordingSeconds,
   selectedIncident,
+  selectedKitId,
   handleCancel,
   handleIncidentClick,
 }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const isDisabled = !selectedIncident || isLoading;
+
+  const handleEndSession = async () => {
+    if (!selectedIncident || !selectedKitId) return;
+
+    setIsLoading(true);
+    const payload: SessionPayload = {
+      deviceId: selectedKitId,
+      sessionDurationSeconds: recordingSeconds,
+      incidentStatus: selectedIncident.incidentStatus,
+    };
+
+    try {
+      await createSession(payload);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div
       className="bg-neutral-900/40 rounded-3xl absolute inset-0"
@@ -54,16 +80,16 @@ export const EndSessionModal = ({
             Cancelar
           </button>
           <button
-            // TODO:  onClick={handleEndSession}
-            disabled={!selectedIncident}
+            onClick={handleEndSession}
+            disabled={isDisabled}
             className={cn(
               "flex-1 py-3 rounded-xl font-bold text-sm transition-colors active:scale-[0.98]",
-              selectedIncident
-                ? "cursor-pointer bg-neutral-900 hover:bg-black active:scale-[0.98] text-white"
-                : "cursor-not-allowed bg-neutral-200 text-neutral-400",
+              isDisabled
+                ? "cursor-not-allowed bg-neutral-200 text-neutral-400"
+                : "cursor-pointer bg-neutral-900 hover:bg-black active:scale-[0.98] text-white",
             )}
           >
-            Guardar Registro
+            {isLoading ? "Guardando..." : "Guardar Registro"}
           </button>
         </div>
       </div>

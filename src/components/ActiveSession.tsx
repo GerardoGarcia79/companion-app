@@ -83,9 +83,10 @@ export const ActiveSession = ({
       {showModal && (
         <EndSessionModal
           recordingSeconds={recordingSeconds}
+          selectedIncident={selectedIncident}
+          selectedKitId={selectedKit?.deviceId}
           handleCancel={handleCancel}
           handleIncidentClick={handleIncidentClick}
-          selectedIncident={selectedIncident}
         />
       )}
     </SessionContainer>
