@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { IoPlaySharp } from "react-icons/io5";
 import { KitCard } from "./KitCard";
 import { SessionHeader } from "./shared/SessionHeader";
 import { SessionContainer } from "./shared/SessionContainer";
 import { cn } from "../lib/utils";
-import { mockKits } from "../data/mockKits";
+import { getDevices } from "../api/devices";
 import type { SessionStatus } from "../CompanionApp";
 import type { Kit } from "../types/kit.types";
 
@@ -19,6 +20,26 @@ export const StartSession = ({
   handleChangeSessionStatus,
   selectedKit,
 }: Props) => {
+  const [kits, setKits] = useState<Kit[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadDevices() {
+      const data = await getDevices();
+
+      setKits(data);
+      setIsLoading(false);
+    }
+
+    loadDevices();
+  }, []);
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center font-bold text-neutral-900 text-xl">
+        Cargando...
+      </div>
+    );
   return (
     <SessionContainer>
       <SessionHeader />
@@ -26,7 +47,7 @@ export const StartSession = ({
         <h2 className="text-2xl font-bold mb-2">Nueva Sesión</h2>
         <p className="text-neutral-600">¿Qué equipo vas a utilizar hoy?</p>
         <div className="flex flex-col gap-2 mt-6">
-          {mockKits.map((k) => {
+          {kits.map((k) => {
             return (
               <KitCard
                 key={k.id}
