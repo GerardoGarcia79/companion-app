@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import { StartSession } from "./components/StartSession";
-import type { Kit } from "./types/kit.types";
 import { ActiveSession } from "./components/ActiveSession";
+import type { Kit } from "./types/kit.types";
+import type { Incident } from "./types/incident.types";
 
 export type SessionStatus = "idle" | "recording" | "completed";
 
 const CompanionApp = () => {
   const [selectedKit, setSelectedKit] = useState<Kit | undefined>(undefined);
+  const [selectedIncident, setSelectedIncident] = useState<
+    Incident | undefined
+  >(undefined);
   const [sessionStatus, setSessionStatus] = useState<SessionStatus>("idle");
   const [recordingSeconds, setRecordingSeconds] = useState(0);
 
@@ -40,8 +44,10 @@ const CompanionApp = () => {
         {sessionStatus !== "idle" && (
           <ActiveSession
             selectedKit={selectedKit}
+            selectedIncident={selectedIncident}
             recordingSeconds={recordingSeconds}
             handleChangeSessionStatus={handleChangeSessionStatus}
+            handleIncidentClick={(incident) => setSelectedIncident(incident)}
           />
         )}
         <Toaster />

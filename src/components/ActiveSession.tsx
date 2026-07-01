@@ -7,17 +7,22 @@ import { SessionHeader } from "./shared/SessionHeader";
 import { cn, formatTime } from "../lib/utils";
 import type { Kit } from "../types/kit.types";
 import type { SessionStatus } from "../CompanionApp";
+import type { Incident } from "../types/incident.types";
 
 interface Props {
   selectedKit: Kit | undefined;
+  selectedIncident: Incident | undefined;
   recordingSeconds: number;
   handleChangeSessionStatus: (status: SessionStatus) => void;
+  handleIncidentClick: (incident: Incident) => void;
 }
 
 export const ActiveSession = ({
   selectedKit,
+  selectedIncident,
   recordingSeconds,
   handleChangeSessionStatus,
+  handleIncidentClick,
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -79,6 +84,8 @@ export const ActiveSession = ({
         <EndSessionModal
           recordingSeconds={recordingSeconds}
           handleCancel={handleCancel}
+          handleIncidentClick={handleIncidentClick}
+          selectedIncident={selectedIncident}
         />
       )}
     </SessionContainer>

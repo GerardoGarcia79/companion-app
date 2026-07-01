@@ -1,21 +1,22 @@
-import { BsCheck2Circle } from "react-icons/bs";
 import { cn } from "../lib/utils";
-import type { IconType } from "react-icons";
 import type { Incident } from "../types/incident.types";
 
 interface Props {
   incident: Incident;
-  handleClick: (incident: Incident) => void;
+  handleIncidentClick: (incident: Incident) => void;
   isSelected: boolean;
-  icon: IconType;
 }
 
-export const IncidentCard = ({ incident, handleClick, isSelected }: Props) => {
+export const IncidentCard = ({
+  incident,
+  handleIncidentClick,
+  isSelected = false,
+}: Props) => {
   const { incident: incidentName, description, icon: Icon } = incident;
 
   return (
     <button
-      onClick={() => handleClick(incident)}
+      onClick={() => handleIncidentClick(incident)}
       className={cn(
         "p-3 border-2 flex gap-4 items-center w-full rounded-xl cursor-pointer transition-colors duration-200",
         isSelected ? "border-blue-600 bg-blue-50/50" : "border-neutral-200",
@@ -42,11 +43,14 @@ export const IncidentCard = ({ incident, handleClick, isSelected }: Props) => {
           {description}
         </p>
       </div>
-      {isSelected && (
-        <div className="p-3 rounded-xl shrink-0">
-          <BsCheck2Circle className="text-blue-600 w-6 h-6" />
-        </div>
-      )}
+      <div
+        className={cn(
+          "h-5 w-5 rounded-full shrink-0 border-2 transition-colors",
+          isSelected
+            ? "bg-blue-600 border-blue-600"
+            : "bg-white border-neutral-300",
+        )}
+      />
     </button>
   );
 };

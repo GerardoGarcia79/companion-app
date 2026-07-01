@@ -1,21 +1,29 @@
 import { GoClock } from "react-icons/go";
-import { formatTime } from "../lib/utils";
+import { cn, formatTime } from "../lib/utils";
 import { mockIncidents } from "../data/mockIncidents";
 import { IncidentCard } from "./IncidentCard";
+import type { Incident } from "../types/incident.types";
 
 interface Props {
   recordingSeconds: number;
+  selectedIncident: Incident | undefined;
   handleCancel: () => void;
+  handleIncidentClick: (incident: Incident) => void;
 }
 
-export const EndSessionModal = ({ recordingSeconds, handleCancel }: Props) => {
+export const EndSessionModal = ({
+  recordingSeconds,
+  selectedIncident,
+  handleCancel,
+  handleIncidentClick,
+}: Props) => {
   return (
     <div
       className="bg-neutral-900/40 rounded-3xl absolute inset-0"
       onClick={handleCancel}
     >
       <div
-        className="bg-white absolute rounded-3xl p-3 top-10 bottom-10 right-3 left-3 z-10 overflow-y-auto flex flex-col"
+        className="bg-white absolute rounded-3xl p-4 top-10 bottom-10 right-3 left-3 z-10 overflow-y-auto flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between">
@@ -29,9 +37,13 @@ export const EndSessionModal = ({ recordingSeconds, handleCancel }: Props) => {
           ¿Hubo algún incidente durante la recolección de datos?
         </p>
         <div className="flex flex-col gap-2 mb-4">
-          {/* TODO: IncidentCard */}
           {mockIncidents.map((incident) => (
-            <IncidentCard incident={incident} key={incident.id} />
+            <IncidentCard
+              incident={incident}
+              key={incident.id}
+              handleIncidentClick={handleIncidentClick}
+              isSelected={selectedIncident?.id === incident.id}
+            />
           ))}
         </div>
         <div className="mt-auto flex gap-2">
@@ -43,7 +55,13 @@ export const EndSessionModal = ({ recordingSeconds, handleCancel }: Props) => {
           </button>
           <button
             // TODO:  onClick={handleEndSession}
-            className="flex-1 bg-neutral-900 hover:bg-black text-white py-3 rounded-xl font-bold text-sm transition-colors active:scale-[0.98]"
+            disabled={!selectedIncident}
+            className={cn(
+              "flex-1 py-3 rounded-xl font-bold text-sm transition-colors active:scale-[0.98]",
+              selectedIncident
+                ? "cursor-pointer bg-neutral-900 hover:bg-black active:scale-[0.98] text-white"
+                : "cursor-not-allowed bg-neutral-200 text-neutral-400",
+            )}
           >
             Guardar Registro
           </button>
